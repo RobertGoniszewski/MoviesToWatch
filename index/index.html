@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="./main.css">
+  </head>
+
+  <body>
+<div id="app">
+    <div class="container mb-2">
+        <div class="">
+            <h5>List of items <span class="badge badge-secondary">1<span></h5>
+              <input v-model="searchTitleTemp" @keyup.enter="search" placeholder="Search for a movie"><button @click="search">Search</button>
+        </div>
+  <div id="card" class="card" style="width: 80%; height: 20%">
+  <div class="card-body p-0 d-flex flex-row">
+      <img class="img-fluid p-0 rounded align-self-center" style="height: 160px; width: auto" :src="item.Poster" :alt="item.Title">
+      <div class="d-flex flex-column p-2">
+          <h5 class="card-title mb-0 justify-content-stretch text-nowrap">{{item.Title}} <span class="badge badge-secondary">{{item.Year}}</span>
+            <img v-if="item.Awards != 'N/A'" style="height: 22px" v-tooltip="item.Awards" :alt="item.Awards" src="./oscar.svg">
+            <div class="d-inline" v-if="boxOffice > 100000000" v-tooltip="item.BoxOffice + ' in Box Office'">
+              <img style="height: 22px" :alt="item.Awards" src="./dollar.svg">
+              <img v-if="boxOffice > 200000000" style="height: 22px" :alt="item.Awards" src="./dollar.svg">
+              <img v-if="boxOffice > 400000000" style="height: 22px" :alt="item.Awards" src="./dollar.svg">
+            </div>
+            
+            </h5>
+            
+          <div class="pl-2 d-flex flex-row">
+            <small class="p-0 mb-0">
+              {{item.Runtime}} | <strong>Genre:</strong> {{item.Genre}} | <strong >Language: </strong>{{item.Language}} | <strong>Rated: </strong>{{item.Rated}}
+            </small>
+              <div class="d-none">
+                  <div class="d-flex flex-row ml-auto mr-5"><small class="">
+                      <strong>Download: </strong>
+                    </small>
+                    <small class="" style="font-size: 0.8rem">
+                      <a href="#"><span class="badge badge-secondary ml-1 mr-0 font-weight-normal">720p </span></a>
+                      <a href="#"><span class="badge badge-secondary ml-1 mr-0 font-weight-normal">1080p</span></a> (bluray), 
+                      <a href="#"><span class="badge badge-secondary ml-1 mr-0 font-weight-normal">3D</span></a>
+                    </small>
+                  </div>
+              </div>
+          </div>
+          <div class="pl-2 d-flex flex-row mb-1">
+            <small>
+              <strong class="pr-1">Ratings:</strong>
+            </small>
+            <small class="pr-1" v-for="rating in item.Ratings">
+              {{rating.Source}}: 
+              <span class="badge badge-secondary" v-tooltip="rating.Value" style="font-size: 0.6rem">
+                {{rating.Value}}
+              </span>
+            </small>
+          </div>
+          <div class="card-text pt-1 align-self-start">
+            <p class="text-indent: 5em">{{item.Plot}}</p>
+          </div>
+              <div class="pl-2 d-flex flex-row">
+                <small class="p-0 mb-0">
+                  <em class="mr-1">
+                    <strong>Director: </strong>
+                    {{item.Director}}
+                  </em>
+                    <em class="mr-1">
+                      <strong>Actors: </strong>
+                      {{item.Actors}}
+                    </em>
+                  </small>
+                </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/popper.js"></script>
+    <script src="https://unpkg.com/v-tooltip"></script>
+  	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
+  </body>
+
+</html>
